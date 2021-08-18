@@ -9,17 +9,20 @@ public interface IGameManager
 
 public class GameManager: IGameManager
 {
-    private ISlotMachine _slotMachine;
 
     [Inject]
-    public void Setup(ISlotMachine slotMachine)
-    {
-        _slotMachine = slotMachine;
-    }
+    ISlotMachine _slotMachine;
 
     public void StartGame()
     {
+        UIManager.On_SpinClick += SpinGame;
+        Debug.Log("Start is started");
         _slotMachine.StartSlotMachine();
-        Debug.Log("Start Game");
     }
+    
+    public void SpinGame()
+    {
+        _slotMachine.SpinSlotMachine();
+    }
+
 }

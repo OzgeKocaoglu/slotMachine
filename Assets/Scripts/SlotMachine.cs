@@ -14,6 +14,7 @@ public enum SlotMachineState
 public interface ISlotMachine
 {
     void StartSlotMachine();
+    void SpinSlotMachine();
 }
 
 
@@ -41,5 +42,11 @@ public class SlotMachine : ISlotMachine
     void ISlotMachine.StartSlotMachine()
     {
         Debug.Log("Started slot machine");
+    }
+
+    void ISlotMachine.SpinSlotMachine()
+    {
+        Debug.Log("Slot machine spin button clicked");
+        State = SlotMachineState.Rolling;
     }
 }

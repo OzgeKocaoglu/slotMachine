@@ -18,6 +18,9 @@ public class Reel : MonoBehaviour{
 
     private void SlotMachineStateChange(SlotMachineState _state)
     {
-        
+        if(_state == SlotMachineState.Rolling)
+        {
+            Debug.Log("Reels are rolling");
+        }
     }
 }
