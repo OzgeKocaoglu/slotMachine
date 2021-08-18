@@ -1,12 +1,23 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class Reel{
+public class Reel : MonoBehaviour{
 
-    List<Item> items = new List<Item>();
     private int numberOfcomboItems;
 
-    public Reel(int numberOfcomboItems, List<Item> itemList){
-        this.numberOfcomboItems = numberOfcomboItems;
+    private void Awake()
+    {
+        SlotMachine.On_StateChanged += SlotMachineStateChange;
+    }
+    private void OnDestroy()
+    {
+        SlotMachine.On_StateChanged -= SlotMachineStateChange;
+    }
+
+
+    private void SlotMachineStateChange(SlotMachineState _state)
+    {
+        
     }
 }
