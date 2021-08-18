@@ -11,7 +11,13 @@ public enum SlotMachineState
     Stopping
 }
 
-public class SlotMachine : MonoBehaviour
+public interface ISlotMachine
+{
+    void StartSlotMachine();
+}
+
+
+public class SlotMachine : ISlotMachine
 {
     private SlotMachineState _state;
 
@@ -32,12 +38,8 @@ public class SlotMachine : MonoBehaviour
         }
     }
 
-    private void Update()
+    void ISlotMachine.StartSlotMachine()
     {
-        if (Input.GetMouseButton(0))
-        {
-            State = SlotMachineState.Rolling;
-        }
+        Debug.Log("Started slot machine");
     }
-
 }
