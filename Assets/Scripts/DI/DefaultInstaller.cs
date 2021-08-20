@@ -7,5 +7,6 @@ public class DefaultInstaller : MonoInstaller
     {
         Container.Bind<ISlotMachine>().To<SlotMachine>().AsSingle();
         Container.Bind<IGameManager>().To<GameManager>().AsSingle();
+        Container.Bind<IDataManager>().To<DataManager>().AsSingle();
     }
 }

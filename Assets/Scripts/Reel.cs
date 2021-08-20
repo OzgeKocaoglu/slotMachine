@@ -2,25 +2,26 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Reel : MonoBehaviour{
+public class Reel {
 
-    private int numberOfcomboItems;
+    private int id;
 
-    private void Awake()
+    public Reel(int id)
     {
+        this.id = id;
         SlotMachine.On_StateChanged += SlotMachineStateChange;
     }
-    private void OnDestroy()
+
+    ~Reel()
     {
         SlotMachine.On_StateChanged -= SlotMachineStateChange;
     }
-
 
     private void SlotMachineStateChange(SlotMachineState _state)
     {
         if(_state == SlotMachineState.Rolling)
         {
-            Debug.Log("Reels are rolling");
+            ReelView.On_ReelViewSpinning?.Invoke(id);
         }
     }
 }

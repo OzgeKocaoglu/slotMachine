@@ -10,7 +10,8 @@ public class UIManager : MonoBehaviour
 
     public void Spin()
     {
-        On_SpinClick?.Invoke();
         Debug.Log("Spining");
+        On_SpinClick?.Invoke();
+
     }
 }

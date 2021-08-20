@@ -9,7 +9,7 @@ public class MainZenject : MonoBehaviour
     private IGameManager _gameManager;
 
    [Inject]
-   public void Setup(ISlotMachine slotMachine, IGameManager gameManager)
+   public void Setup(IGameManager gameManager)
     {
         _gameManager = gameManager;
     }
