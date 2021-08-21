@@ -23,9 +23,11 @@ public class SlotMachine : ISlotMachine
     private SlotMachineState _state;
     private List<Combo> _combos;
     private List<Reel> _reels;
+    private List<int> _comboList;
     private Dictionary<int, int> _probabilityData;
     private int spinCount = 0;
     private float currentProbability = 0;
+    private int periot = 100;
     public delegate void SlotMachineHandler(SlotMachineState State);
     public static SlotMachineHandler On_StateChanged;
 
@@ -48,6 +50,7 @@ public class SlotMachine : ISlotMachine
     {
         _combos = new List<Combo>();
         _reels = new List<Reel>();
+        _comboList = new List<int>(periot);
         for(int i = 1; i<= 3; i++)
         {
             _reels.Add(new Reel(i));
@@ -57,6 +60,33 @@ public class SlotMachine : ISlotMachine
             Combo combo = new Combo(data.periot, data.spinProbability, data.id);
             _combos.Add(combo);
         }
+
+        //spinCount'u playerprefs'den al.
+        if (spinCount % periot == 0)
+        {
+            Debug.Log("New set is creating");
+            for (int i = 0; i < _combos.Count; i++)
+            {
+                for (int j = 0; j < _combos[i].Probability; j++)
+                {
+                    _comboList.Add(_combos[i].ID);
+                }
+            }
+        }
+
+        Utils.Shuffle(_comboList);
+
+        foreach(var combo in _comboList)
+        {
+            Debug.Log(combo);
+        }
+        //Listeyi istenilen þekilde düzenle.
+        //Array'e çevir
+        //make spacing
+        //check if true
+        //
+
+
 
     }
 
@@ -82,6 +112,7 @@ public class SlotMachine : ISlotMachine
         }
         Debug.Log(GetItemByProbability(_prop));
 
+      
     }
 
     private Combo GetItemByPeriot(int periot)
