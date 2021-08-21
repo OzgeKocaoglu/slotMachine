@@ -13,6 +13,13 @@ public class ReelView : MonoBehaviour
     [SerializeField] private List<GameObject> items;
     private int spinCount;
     private float bottom, top;
+    Vector3 initialPosition;
+    private float rotationSpeed;
+    private float maxRotationSpeed = 20f;
+    private float acceleration = 2f;
+    private float deceleration = 3f;
+    private float speedCoefficient = 3f;
+    private float currentTime;
 
 
     private void Awake()
@@ -21,6 +28,7 @@ public class ReelView : MonoBehaviour
         bottom = items[0].transform.position.y;
         top = items[items.Count - 1].transform.position.y;
         spinCount = 0;
+        initialPosition = this.transform.position;
         Debug.Log("top " + top);
         Debug.Log("bottom " + bottom);
     }
@@ -36,45 +44,50 @@ public class ReelView : MonoBehaviour
         if(this.id == id)
         {
 
-            StartCoroutine(WaitUntilSpinEnd(spinTime));
+            StartCoroutine(WaitUntilSpinEnd(spinTime, id));
             BlurActive();
         }
-        //Ýstenilen süre geçtikten sonra //Couroutine
         
     }
 
-    IEnumerator WaitUntilSpinEnd(float spinTime)
+    IEnumerator WaitUntilSpinEnd(float spinTime, int id)
     {
-        StartCoroutine(Spinning());
         Debug.Log("Spinning Started");
+        StartCoroutine(Spin(id, spinTime));
         yield return new WaitForSeconds(spinTime);
+        //StopCoroutine("Spin");
+        StopAllCoroutines();
         Debug.Log("Spinning Ended");
-        StopCoroutine(Spinning());
     }
 
-
-    IEnumerator Spinning()
+    IEnumerator Spin(int id, float spinTime)
     {
+        yield return new WaitForSeconds(id * Random.Range(0.1f,0.2f));
         while (true)
         {
-            for (int i = 0; i < items.Count; i++)
+
+            if(transform.position.y <= -7.5f)
             {
-                this.transform.DOMoveY(items[i].transform.position.y - spacing, 0.3f).OnComplete(() => {
-                    Debug.Log("Completed");
-
-                    items[i].transform.position = new Vector2(items[i].transform.position.x, 12.5f);
-
-                });
+                this.transform.position = initialPosition;
             }
-        }
-        yield return new WaitForSeconds(1f);
-    }
+            if(spinTime - currentTime > 5f)
+            {
+                rotationSpeed = Mathf.Clamp(rotationSpeed + Time.deltaTime * acceleration * speedCoefficient, 0, maxRotationSpeed);
 
-    //Couroutine
-    //void Spinning()
-    //{
- 
-    //}
+            }
+            else
+            {
+                rotationSpeed = Mathf.Clamp(rotationSpeed - Time.deltaTime * deceleration  * speedCoefficient, 0, maxRotationSpeed);
+
+            }
+            this.transform.position = Vector3.MoveTowards(transform.position,
+                    (new Vector3(transform.position.x, -7.5f, transform.position.z)),
+                    rotationSpeed * Time.deltaTime);
+            currentTime += Time.deltaTime;
+
+            yield return null;
+        }
+    }
 
 
     void BlurActive()
