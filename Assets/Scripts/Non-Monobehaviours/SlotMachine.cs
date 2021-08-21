@@ -23,7 +23,7 @@ public class SlotMachine : ISlotMachine
     private SlotMachineState _state;
     private List<Combo> _combos;
     private List<Reel> _reels;
-    private List<int> _comboList;
+    private int[] _comboList;
     private Dictionary<int, int> _probabilityData;
     private int spinCount = 0;
     private float currentProbability = 0;
@@ -50,7 +50,7 @@ public class SlotMachine : ISlotMachine
     {
         _combos = new List<Combo>();
         _reels = new List<Reel>();
-        _comboList = new List<int>(periot);
+        _comboList = new int[periot];
         for(int i = 1; i<= 3; i++)
         {
             _reels.Add(new Reel(i));
@@ -69,10 +69,35 @@ public class SlotMachine : ISlotMachine
             {
                 for (int j = 0; j < _combos[i].Probability; j++)
                 {
-                    _comboList.Add(_combos[i].ID);
+                    //_comboList.Add(_combos[i].ID);
                 }
             }
         }
+
+        if (spinCount % periot == 0)
+        {
+            for (int i = 0; i < _combos.Count; i++)
+            {
+
+                for (int p = _combos[i].Periot; p <= 100; p += _combos[i].Periot)
+                {
+                    int index = GenerateRandom(p, _combos[i].Periot);
+                    if(_comboList[index] == 0)
+                    {
+                        _comboList[index] = _combos[i].ID;
+                        Debug.Log("ID:::" + _combos[i].ID + "INDEX :: " + index);
+                    }
+                    if(p == 20)
+                    {
+                        FindNullIndexAtPeriot(p, _combos[i].Periot);
+                    }
+
+                }
+
+
+            }
+        }
+
 
         Utils.Shuffle(_comboList);
 
@@ -87,6 +112,21 @@ public class SlotMachine : ISlotMachine
         //
 
 
+
+    }
+
+    private int GenerateRandom(int p, int coefficent)
+    {
+        return UnityEngine.Random.Range(p - coefficent, p);
+    }
+
+    private int FindNullIndexAtPeriot(int p, int coe)
+    {
+        for (int i = p - coe; i <= p; p++)
+        {
+            Debug.Log("ARALIKTAYIMMM");
+        }
+        return 0;
 
     }
 
