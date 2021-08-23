@@ -17,11 +17,11 @@ public class Reel {
         SlotMachine.On_StateChanged -= SlotMachineStateChange;
     }
 
-    private void SlotMachineStateChange(SlotMachineState _state)
+    private void SlotMachineStateChange(SlotMachineState _state, Combo _currentCombo)
     {
         if(_state == SlotMachineState.Rolling)
         {
-            ReelView.On_ReelViewSpinning?.Invoke(id);
+            ReelView.On_ReelViewSpinning?.Invoke(id, _currentCombo);
         }
     }
 }

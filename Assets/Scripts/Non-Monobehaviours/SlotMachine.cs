@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Zenject;
+
 
 public enum SlotMachineState
 {
@@ -24,12 +26,13 @@ public class SlotMachine : ISlotMachine
     private List<Combo> _combos;
     private List<Reel> _reels;
     private int[] _comboList;
-    private Dictionary<int, int> _probabilityData;
     private int spinCount = 0;
-    private float currentProbability = 0;
     private int periot = 100;
-    public delegate void SlotMachineHandler(SlotMachineState State);
+    public delegate void SlotMachineHandler(SlotMachineState State, Combo _currentCombo);
     public static SlotMachineHandler On_StateChanged;
+    public Combo _currentCombo;
+    [Inject]
+    IDataManager _dataManager;
 
 
     public SlotMachineState State
@@ -41,7 +44,7 @@ public class SlotMachine : ISlotMachine
         set
         {
             _state = value;
-            On_StateChanged?.Invoke(_state);
+            On_StateChanged?.Invoke(_state, _currentCombo);
         }
     }
 
@@ -61,21 +64,10 @@ public class SlotMachine : ISlotMachine
             _combos.Add(combo);
         }
 
-        //spinCount'u playerprefs'den al.
+        _dataManager.GetData(out spinCount, out _comboList);
         if (spinCount % periot == 0)
         {
-            Debug.Log("New set is creating");
-            for (int i = 0; i < _combos.Count; i++)
-            {
-                for (int j = 0; j < _combos[i].Probability; j++)
-                {
-                    //_comboList.Add(_combos[i].ID);
-                }
-            }
-        }
-
-        if (spinCount % periot == 0)
-        {
+            Debug.Log("Creating new set");
             for (int i = 0; i < _combos.Count; i++)
             {
 
@@ -85,7 +77,6 @@ public class SlotMachine : ISlotMachine
                     if(_comboList[index] == 0)
                     {
                         _comboList[index] = _combos[i].ID;
-                        //Debug.Log("ID:::" + _combos[i].ID + "INDEX :: " + index);
                     }
                     else
                     {
@@ -93,26 +84,16 @@ public class SlotMachine : ISlotMachine
                         _comboList[index] = _combos[i].ID;
                     }
 
-                    Debug.Log("ID:::" + _combos[i].ID + " number:: " + index);
                 }
             }
         }
-
-
-        Utils.Shuffle(_comboList);
-
-        foreach(var combo in _comboList)
+        else
         {
-            Debug.Log(combo);
+            _currentCombo = GetCombo();
+            Debug.Log("current combo is: " + _currentCombo.ID);
+            Debug.Log("Set is keep going");
+           
         }
-        //Listeyi istenilen ?ekilde d?zenle.
-        //Array'e ?evir
-        //make spacing
-        //check if true
-        //
-
-
-
     }
 
     private int GenerateRandom(int p, int coefficent)
@@ -140,98 +121,43 @@ public class SlotMachine : ISlotMachine
     void ISlotMachine.SpinSlotMachine()
     {
         State = SlotMachineState.Rolling;
-
-        //Calculate weights
-        //periotxprobability
-        //get min periot and find maximum probability cumulative
-        //set cameoutvariable false
-        //and keep going
-        List<float> _prop = new List<float>();
-
-        foreach(Combo _combo in _combos)
-        {
-            _prop.Add(_combo.Probability);
-        }
-        Debug.Log(GetItemByProbability(_prop));
-
-      
+        spinCount++;
+        _dataManager.SaveData(_comboList, spinCount);
     }
 
-    private Combo GetItemByPeriot(int periot)
+    private Combo GetCombo()
     {
-        for(int i = 0; i<_combos.Count; i++)
+        for (int i = 0; i < _comboList.Length; i++)
         {
-            if(_combos[i].Periot == periot)
+            if (_comboList[i] != 0)
             {
-                return _combos[i];
+                Combo _combo = FindCombo(i);
+                if(_combo != null)
+                {
+                    _comboList[i] = 0;
+                    return _combo;
+                }
+                else
+                {
+                    Debug.LogError("Json file is empty, list is empty!");
+                }
+
             }
         }
         return null;
     }
 
-    private int CalculateWeight(int probability, int periot)
+    private Combo FindCombo(int id)
     {
-        return probability * periot;
-    }
-
-
-    private int GetMinPeriot(int spinCount)
-    {
-        int minPeriot = 20;
-        for (int i = 0; i < _combos.Count; i++)
+        foreach(var combo in _combos)
         {
-            if ((_combos[i].Periot < minPeriot))
-            {
-                minPeriot = _combos[i].Periot;
-            }
-        }
+            if (combo.ID == id)
+                return combo;
 
-        return minPeriot;
+        }
+        return null;
     }
 
-    List<float> cumulativeProbability;
 
-    //This function is called with the Item probability array and it'll return the index of the item
-    // for example the list can look like [10,25,30] so the first item has 10% of showing and next one has 25% and so on
-    public int GetItemByProbability(List<float> probability) //[50,10,20,20]
-    {
-        //if your game will use this a lot of time it is best to build the arry just one time
-        //and remove this function from here.
-        if (!MakeCumulativeProbability(probability))
-            return -1; //when it return false then the list excceded 100 in the last index
-
-        float rnd = UnityEngine.Random.Range(1, 101); //Get a random number between 0 and 100
-
-        for (int i = 0; i < probability.Count; i++)
-        {
-            if (rnd <= cumulativeProbability[i]) //if the probility reach the correct sum
-            {
-                return i; //return the item index that has been chosen 
-            }
-        }
-        return -1; //return -1 if some error happens
-    }
-
-    //this function creates the cumulative list
-    bool MakeCumulativeProbability(List<float> probability)
-    {
-        float probabilitiesSum = 0;
-
-        cumulativeProbability = new List<float>(); //reset the Array
-
-        for (int i = 0; i < probability.Count; i++)
-        {
-            probabilitiesSum += probability[i]; //add the probability to the sum
-            cumulativeProbability.Add(probabilitiesSum); //add the new sum to the list
-
-            //All Probabilities need to be under 100% or it'll throw an exception
-            if (probabilitiesSum > 100f)
-            {
-                Debug.LogError("Probabilities exceed 100%");
-                return false;
-            }
-        }
-        return true;
-    }
 
 }

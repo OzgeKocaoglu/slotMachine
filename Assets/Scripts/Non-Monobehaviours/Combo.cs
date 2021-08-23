@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 
-class Combo
+public class Combo
 {
     private int periot;
     private int probability;

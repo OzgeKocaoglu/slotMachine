@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class ReelView : MonoBehaviour
 {
-    public delegate void ReelHandler(int id);
+    public delegate void ReelHandler(int id, Combo _currentCombo);
     public static ReelHandler On_ReelViewSpinning;
+
     [SerializeField] private int id;
-    [SerializeField] private float spacing;
     [SerializeField] private float spinTime;
     [SerializeField] private List<GameObject> items;
-    private int spinCount;
-    private float bottom, top;
+
+    [Header("Spin Variables")]
     Vector3 initialPosition;
     private float rotationSpeed;
     private float maxRotationSpeed = 20f;
@@ -21,16 +20,13 @@ public class ReelView : MonoBehaviour
     private float speedCoefficient = 3f;
     private float currentTime;
 
+    Coroutine SpinCouroutine = null, Stopping = null;
+
 
     private void Awake()
     {
         On_ReelViewSpinning += ReelSpin;
-        bottom = items[0].transform.position.y;
-        top = items[items.Count - 1].transform.position.y;
-        spinCount = 0;
         initialPosition = this.transform.position;
-        Debug.Log("top " + top);
-        Debug.Log("bottom " + bottom);
     }
 
     private void OnDestroy()
@@ -38,39 +34,33 @@ public class ReelView : MonoBehaviour
         On_ReelViewSpinning -= ReelSpin;
     }
 
-
-    private void ReelSpin(int id)
+    private void ReelSpin(int id, Combo _currentCombo)
     {
         if(this.id == id)
         {
-
             StartCoroutine(WaitUntilSpinEnd(spinTime, id));
-            BlurActive();
+            BlurToggle();
         }
-        
     }
 
     IEnumerator WaitUntilSpinEnd(float spinTime, int id)
     {
-        Debug.Log("Spinning Started");
-        StartCoroutine(Spin(id, spinTime));
+        SpinCouroutine = StartCoroutine(Spin(id, spinTime));
         yield return new WaitForSeconds(spinTime);
-        //StopCoroutine("Spin");
-        StopAllCoroutines();
-        Debug.Log("Spinning Ended");
+        StopCoroutine(SpinCouroutine);
     }
 
     IEnumerator Spin(int id, float spinTime)
     {
         yield return new WaitForSeconds(id * Random.Range(0.1f,0.2f));
+
         while (true)
         {
-
-            if(transform.position.y <= -7.5f)
+            if (transform.position.y <= -7.5f)
             {
                 this.transform.position = initialPosition;
             }
-            if(spinTime - currentTime > 5f)
+            if(spinTime - currentTime > 1f)
             {
                 rotationSpeed = Mathf.Clamp(rotationSpeed + Time.deltaTime * acceleration * speedCoefficient, 0, maxRotationSpeed);
 
@@ -84,17 +74,24 @@ public class ReelView : MonoBehaviour
                     (new Vector3(transform.position.x, -7.5f, transform.position.z)),
                     rotationSpeed * Time.deltaTime);
             currentTime += Time.deltaTime;
-
             yield return null;
         }
     }
 
 
-    void BlurActive()
+    private void BlurToggle()
     {
         foreach(var item in items)
         {
-            item.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            GameObject childItem = item.gameObject.transform.GetChild(0).gameObject;
+            if (childItem != enabled)
+            {
+                childItem.SetActive(true);
+            }
+            else
+            {
+                childItem.SetActive(false);
+            }
         }
     }
 }
