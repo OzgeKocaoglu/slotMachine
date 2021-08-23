@@ -85,16 +85,16 @@ public class SlotMachine : ISlotMachine
                     if(_comboList[index] == 0)
                     {
                         _comboList[index] = _combos[i].ID;
-                        Debug.Log("ID:::" + _combos[i].ID + "INDEX :: " + index);
+                        //Debug.Log("ID:::" + _combos[i].ID + "INDEX :: " + index);
                     }
-                    if(p == 20)
+                    else
                     {
-                        FindNullIndexAtPeriot(p, _combos[i].Periot);
+                        index = FindNullIndexAtPeriot(p - _combos[i].Periot, p);
+                        _comboList[index] = _combos[i].ID;
                     }
 
+                    Debug.Log("ID:::" + _combos[i].ID + " number:: " + index);
                 }
-
-
             }
         }
 
@@ -105,8 +105,8 @@ public class SlotMachine : ISlotMachine
         {
             Debug.Log(combo);
         }
-        //Listeyi istenilen þekilde düzenle.
-        //Array'e çevir
+        //Listeyi istenilen ?ekilde d?zenle.
+        //Array'e ?evir
         //make spacing
         //check if true
         //
@@ -120,14 +120,16 @@ public class SlotMachine : ISlotMachine
         return UnityEngine.Random.Range(p - coefficent, p);
     }
 
-    private int FindNullIndexAtPeriot(int p, int coe)
+    private int FindNullIndexAtPeriot(int bottom, int top)
     {
-        for (int i = p - coe; i <= p; p++)
+        for (int i = bottom; i <= top; i++)
         {
-            Debug.Log("ARALIKTAYIMMM");
+            if(_comboList[i] == 0)
+            {
+                return i;
+            }
         }
         return 0;
-
     }
 
     void ISlotMachine.StartSlotMachine(int reelCount, List<ProbabilityTableVariable> _datas)
