@@ -38,6 +38,11 @@ public class ReelView : MonoBehaviour
     {
         if(this.id == id)
         {
+            Debug.Log(_currentCombo.ID);
+            foreach(var name in _currentCombo.Names)
+            {
+                Debug.Log(name);
+            }
             StartCoroutine(WaitUntilSpinEnd(spinTime, id));
             BlurToggle();
         }

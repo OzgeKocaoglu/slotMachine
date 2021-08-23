@@ -1,15 +1,10 @@
-﻿using UnityEngine;
-using System;
-using System.Collections.Generic;
-
-
+﻿
 public class Combo
 {
     private int periot;
     private int probability;
     private int id;
-    private bool isCameOut;
-    public int[][] _numberOflist;
+    private string[] names;
 
     public int Periot
     {
@@ -25,19 +20,6 @@ public class Combo
             return id;
         }
     }
-
-    public bool CameOut
-    {
-        get
-        {
-          return  isCameOut;
-        }
-        set
-        {
-            isCameOut = value;
-        }
-    }
-
     public int Probability
     {
         get
@@ -45,31 +27,19 @@ public class Combo
             return probability;
         }
     }
-
-    public void SetListVariables(List<int> _variables)
+    public string[] Names
     {
-        for(int i = 0; i<_variables.Count; i++)
+        get
         {
-            if(_variables[i] == ID)
-            {
-                for(int j = 0; j < _numberOflist.Length; j++)
-                {
-                    
-                }
-
-            }
+            return names;
         }
     }
-
-
-    public Combo(int periot, int probability, int id)
+    public Combo(int periot, int probability, int id, string[] names)
     {
         this.periot = periot;
         this.probability = probability;
         this.id = id;
-        _numberOflist = new int[100/periot][];
-        isCameOut = false;
+        this.names = names;
     }
-
 }
 

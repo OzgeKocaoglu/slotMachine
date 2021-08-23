@@ -1,7 +1,4 @@
-using UnityEngine;
 using Zenject;
-using System.Collections.Generic;
-
 
 public interface IGameManager
 {
@@ -10,7 +7,6 @@ public interface IGameManager
 
 public class GameManager: IGameManager
 {
-
     [Inject]
     ISlotMachine _slotMachine;
 
@@ -22,10 +18,8 @@ public class GameManager: IGameManager
         _slotMachine.StartSlotMachine(3, _dataManager.Init());
         UIManager.On_SpinClick += SpinGame;
     }
-    
     public void SpinGame()
     {
         _slotMachine.SpinSlotMachine();
     }
-
 }

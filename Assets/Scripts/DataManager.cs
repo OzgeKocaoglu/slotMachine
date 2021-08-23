@@ -20,7 +20,6 @@ public class DataManager : IDataManager
         path = "/PlayerData.json";
     }
 
-    //Scriptable
     public List<ProbabilityTableVariable> Init()
     {
         return Utils.GetAllInstances<ProbabilityTableVariable>();
@@ -37,12 +36,8 @@ public class DataManager : IDataManager
     public void GetData(out int spinCount, out int[] _spins)
     {
         json = File.ReadAllText(Application.persistentDataPath + path);
-        Debug.Log("json" + json);
         PlayerData data = JsonUtility.FromJson<PlayerData>(json);
-
         spinCount = data.totalSpinCount;
         _spins = data.spins;
-
-        Debug.Log("DATAMANAGER:: " +spinCount);
     }
 }

@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using Zenject;
 
 
@@ -19,7 +17,6 @@ public interface ISlotMachine
     void SpinSlotMachine();
 }
 
-
 public class SlotMachine : ISlotMachine
 {
     private SlotMachineState _state;
@@ -28,9 +25,11 @@ public class SlotMachine : ISlotMachine
     private int[] _comboList;
     private int spinCount = 0;
     private int periot = 100;
+
     public delegate void SlotMachineHandler(SlotMachineState State, Combo _currentCombo);
     public static SlotMachineHandler On_StateChanged;
     public Combo _currentCombo;
+
     [Inject]
     IDataManager _dataManager;
 
@@ -48,7 +47,6 @@ public class SlotMachine : ISlotMachine
         }
     }
 
-
     private void InitSlotMachine(int reelCount, List<ProbabilityTableVariable> _datas)
     {
         _combos = new List<Combo>();
@@ -60,17 +58,15 @@ public class SlotMachine : ISlotMachine
         }
         foreach (var data in _datas)
         {
-            Combo combo = new Combo(data.periot, data.spinProbability, data.id);
+            Combo combo = new Combo(data.periot, data.spinProbability, data.id, data.slotVariables.ToArray());
             _combos.Add(combo);
         }
-
         _dataManager.GetData(out spinCount, out _comboList);
         if (spinCount % periot == 0)
         {
             Debug.Log("Creating new set");
             for (int i = 0; i < _combos.Count; i++)
             {
-
                 for (int p = _combos[i].Periot; p <= 100; p += _combos[i].Periot)
                 {
                     int index = GenerateRandom(p, _combos[i].Periot);
@@ -83,48 +79,24 @@ public class SlotMachine : ISlotMachine
                         index = FindNullIndexAtPeriot(p - _combos[i].Periot, p);
                         _comboList[index] = _combos[i].ID;
                     }
-
                 }
             }
         }
         else
         {
             _currentCombo = GetCombo();
-            Debug.Log("current combo is: " + _currentCombo.ID);
-            Debug.Log("Set is keep going");
-           
         }
     }
-
-    private int GenerateRandom(int p, int coefficent)
-    {
-        return UnityEngine.Random.Range(p - coefficent, p);
-    }
-
-    private int FindNullIndexAtPeriot(int bottom, int top)
-    {
-        for (int i = bottom; i <= top; i++)
-        {
-            if(_comboList[i] == 0)
-            {
-                return i;
-            }
-        }
-        return 0;
-    }
-
     void ISlotMachine.StartSlotMachine(int reelCount, List<ProbabilityTableVariable> _datas)
     {
         InitSlotMachine(reelCount, _datas);
     }
-
     void ISlotMachine.SpinSlotMachine()
     {
         State = SlotMachineState.Rolling;
         spinCount++;
         _dataManager.SaveData(_comboList, spinCount);
     }
-
     private Combo GetCombo()
     {
         for (int i = 0; i < _comboList.Length; i++)
@@ -146,7 +118,6 @@ public class SlotMachine : ISlotMachine
         }
         return null;
     }
-
     private Combo FindCombo(int id)
     {
         foreach(var combo in _combos)
@@ -157,7 +128,23 @@ public class SlotMachine : ISlotMachine
         }
         return null;
     }
-
-
-
+    private void ClearJson()
+    {
+        spinCount = 0;
+    }
+    private int GenerateRandom(int p, int coefficent)
+    {
+        return UnityEngine.Random.Range(p - coefficent, p);
+    }
+    private int FindNullIndexAtPeriot(int bottom, int top)
+    {
+        for (int i = bottom; i <= top; i++)
+        {
+            if (_comboList[i] == 0)
+            {
+                return i;
+            }
+        }
+        return 0;
+    }
 }
