@@ -78,7 +78,6 @@ public class ReelView : MonoBehaviour
         }
     }
 
-
     private void BlurToggle()
     {
         foreach(var item in items)

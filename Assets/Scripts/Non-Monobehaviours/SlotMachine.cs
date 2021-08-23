@@ -131,7 +131,7 @@ public class SlotMachine : ISlotMachine
         {
             if (_comboList[i] != 0)
             {
-                Combo _combo = FindCombo(i);
+                Combo _combo = FindCombo(_comboList[i]);
                 if(_combo != null)
                 {
                     _comboList[i] = 0;
