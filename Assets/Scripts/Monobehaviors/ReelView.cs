@@ -18,6 +18,7 @@ public class ReelView : MonoBehaviour
     private float acceleration = 2f;
     private float deceleration = 3f;
     private float speedCoefficient = 3f;
+    private int spinableObjectCount = 5;
     private float currentTime;
     private List<string> spinVariables;
 
@@ -47,14 +48,16 @@ public class ReelView : MonoBehaviour
                 Debug.Log(_currentCombo.Names[i]);
             }
             StartCoroutine(WaitUntilSpinEnd(spinTime, id));
-            //BlurToggle();
         }
     }
 
     IEnumerator WaitUntilSpinEnd(float spinTime, int id)
     {
         SpinCouroutine = StartCoroutine(Spin(id, spinTime));
-        BlurToggle();
+        foreach (var item in items)
+        {
+            item.ActivateBlur();
+        }
         yield return new WaitForSeconds(spinTime);
         StopCoroutine(SpinCouroutine);
     }
@@ -79,6 +82,10 @@ public class ReelView : MonoBehaviour
             else
             {
                 //Slowing
+                foreach (var item in items)
+                {
+                    item.DeactivateBlur();
+                }
                 Debug.Log("I'm reel: " + id + "and my transform is " + GetCurrentVariableLocalTransform());
                 rotationSpeed = Mathf.Clamp(rotationSpeed - Time.deltaTime * deceleration  * speedCoefficient, 0, maxRotationSpeed);
                 this.transform.position = Vector3.MoveTowards(transform.position,
@@ -95,24 +102,9 @@ public class ReelView : MonoBehaviour
         }
     }
 
-    private void BlurToggle()
-    {
-        foreach(var item in items)
-        {
-            GameObject childItem = item.gameObject.transform.GetChild(0).gameObject;
-            if (childItem != enabled)
-            {
-                childItem.SetActive(true);
-            }
-            else
-            {
-                childItem.SetActive(false);
-            }
-        }
-    }
     private float GetCurrentVariableLocalTransform()
     {
-        for (int i = 0; i < items.Count; i++)
+        for (int i = 0; i < spinableObjectCount; i++)
         {
             if (items[i].Equals(spinVariables[id-1]))
             {

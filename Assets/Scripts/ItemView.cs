@@ -16,8 +16,9 @@ public class ItemView : MonoBehaviour
 {
 
     [SerializeField] private ItemType typeName;
-    public string itemName;
+    private string itemName;
     private Vector3 initialLocalTransform;
+    private GameObject blurChild;
 
     public Vector3 LocalTransform
     {
@@ -29,6 +30,7 @@ public class ItemView : MonoBehaviour
 
     private void Awake()
     {
+        blurChild = transform.GetChild(0).gameObject;
         initialLocalTransform = this.transform.localPosition;
         itemName = typeName.ToString();
     }
@@ -36,6 +38,16 @@ public class ItemView : MonoBehaviour
     public bool Equals(string obj)
     {
         return this.itemName == obj;
+    }
+
+    public void ActivateBlur()
+    {
+        blurChild.SetActive(true);
+    }
+
+    public void DeactivateBlur()
+    {
+        blurChild.SetActive(false);
     }
 
 
