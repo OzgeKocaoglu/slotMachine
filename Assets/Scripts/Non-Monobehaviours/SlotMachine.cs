@@ -52,7 +52,7 @@ public class SlotMachine : ISlotMachine
         _combos = new List<Combo>();
         _reels = new List<Reel>();
         _comboList = new int[periot];
-        for(int i = 1; i<= 3; i++)
+        for (int i = 1; i<= 3; i++)
         {
             _reels.Add(new Reel(i));
         }
@@ -64,10 +64,11 @@ public class SlotMachine : ISlotMachine
         _dataManager.GetData(out spinCount, out _comboList);
         if (spinCount % periot == 0)
         {
+            Debug.Log("Combolist count" + _comboList.Length);
             Debug.Log("Creating new set");
             for (int i = 0; i < _combos.Count; i++)
             {
-                for (int p = _combos[i].Periot; p <= 100; p += _combos[i].Periot)
+                for (int p = _combos[i].Periot; p < 100; p += _combos[i].Periot)
                 {
                     int index = GenerateRandom(p, _combos[i].Periot);
                     if(_comboList[index] == 0)
@@ -81,6 +82,7 @@ public class SlotMachine : ISlotMachine
                     }
                 }
             }
+            _currentCombo = GetCombo();
         }
         else
         {
@@ -93,8 +95,8 @@ public class SlotMachine : ISlotMachine
     }
     void ISlotMachine.SpinSlotMachine()
     {
-        State = SlotMachineState.Rolling;
         spinCount++;
+        State = SlotMachineState.Rolling;
         _dataManager.SaveData(_comboList, spinCount);
     }
     private Combo GetCombo()
@@ -104,6 +106,7 @@ public class SlotMachine : ISlotMachine
             if (_comboList[i] != 0)
             {
                 Combo _combo = FindCombo(_comboList[i]);
+                Debug.Log(_combo);
                 if(_combo != null)
                 {
                     _comboList[i] = 0;
@@ -140,6 +143,7 @@ public class SlotMachine : ISlotMachine
     {
         for (int i = bottom; i <= top; i++)
         {
+            Debug.Log(_comboList[i]);
             if (_comboList[i] == 0)
             {
                 return i;

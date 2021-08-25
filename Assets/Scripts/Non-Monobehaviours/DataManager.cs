@@ -36,6 +36,7 @@ public class DataManager : IDataManager
     public void GetData(out int spinCount, out int[] _spins)
     {
         json = File.ReadAllText(Application.persistentDataPath + path);
+        Debug.Log(json);
         PlayerData data = JsonUtility.FromJson<PlayerData>(json);
         spinCount = data.totalSpinCount;
         _spins = data.spins;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class ReelView : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class ReelView : MonoBehaviour
     private float rotationSpeed;
     private float maxRotationSpeed = 20f;
     private float acceleration = 2f;
-    private float deceleration = 3f;
+    private float deceleration = 1.5f;
     private float speedCoefficient = 3f;
     private int spinableObjectCount = 5;
     private float currentTime;
@@ -54,10 +55,6 @@ public class ReelView : MonoBehaviour
     IEnumerator WaitUntilSpinEnd(float spinTime, int id)
     {
         SpinCouroutine = StartCoroutine(Spin(id, spinTime));
-        foreach (var item in items)
-        {
-            item.ActivateBlur();
-        }
         yield return new WaitForSeconds(spinTime);
         StopCoroutine(SpinCouroutine);
     }
@@ -65,54 +62,60 @@ public class ReelView : MonoBehaviour
     IEnumerator Spin(int id, float spinTime)
     {
         yield return new WaitForSeconds(id * Random.Range(0.1f,0.2f));
-
         while (true)
         {
+            if(currentTime > spinTime / 4)
+            {
+                foreach (var item in items)
+                {
+                    item.ActivateBlur();
+                }
+            }
             if (transform.position.y <= -7.5f)
             {
                 this.transform.position = initialPosition;
             }
-            if(spinTime - currentTime > spinTime/2)
-            {
-                rotationSpeed = Mathf.Clamp(rotationSpeed + Time.deltaTime * acceleration * speedCoefficient, 0, maxRotationSpeed);
-                this.transform.position = Vector3.MoveTowards(transform.position,
-                (new Vector3(transform.position.x, -7.5f, transform.position.z)),
-                rotationSpeed * Time.deltaTime);
-            }
-            else
+            rotationSpeed = Mathf.Clamp(rotationSpeed + Time.deltaTime * acceleration * speedCoefficient, 0, maxRotationSpeed);
+            this.transform.position = Vector3.MoveTowards(transform.position,
+            (new Vector3(transform.position.x, -7.5f, transform.position.z)),
+            rotationSpeed * Time.deltaTime);
+            if (spinTime - currentTime < spinTime / 2)
             {
                 //Slowing
                 foreach (var item in items)
                 {
                     item.DeactivateBlur();
                 }
-                Debug.Log("I'm reel: " + id + "and my transform is " + GetCurrentVariableLocalTransform());
-                rotationSpeed = Mathf.Clamp(rotationSpeed - Time.deltaTime * deceleration  * speedCoefficient, 0, maxRotationSpeed);
-                this.transform.position = Vector3.MoveTowards(transform.position,
-                (new Vector3(transform.position.x, -GetCurrentVariableLocalTransform(), transform.position.z)),
-                rotationSpeed * Time.deltaTime);
-                if (transform.position.y == -GetCurrentVariableLocalTransform())
-                {
-                    Debug.Log("Wait");
-                    yield return null;
-                }
+                Stopping = StartCoroutine(Stop());
             }
             currentTime += Time.deltaTime;
             yield return null;
         }
     }
 
+    IEnumerator Stop()
+    {
+        yield return new WaitForSeconds(id * Random.Range(1f, 2f));
+        while (true)
+        {
+            rotationSpeed = Mathf.Clamp(rotationSpeed - Time.deltaTime * deceleration * speedCoefficient, 0, maxRotationSpeed);
+            this.transform.position = Vector3.MoveTowards(transform.position,
+            (new Vector3(transform.position.x, -GetCurrentVariableLocalTransform(), transform.position.z)),
+            rotationSpeed * Time.deltaTime);
+            //transform.DOMove(new Vector3(transform.position.x, GetCurrentVariableLocalTransform(), transform.position.z), 1);
+            yield return null;
+        }
+    }
+
     private float GetCurrentVariableLocalTransform()
     {
-        for (int i = 0; i < spinableObjectCount; i++)
+        for (int i = 0; i < items.Count; i++)
         {
             if (items[i].Equals(spinVariables[id-1]))
             {
-                Debug.Log("Local transform:: " + items[i].LocalTransform.y);
                 return items[i].LocalTransform.y;
             }
         }
         return 0;
-
     }
 }

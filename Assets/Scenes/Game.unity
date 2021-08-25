@@ -369,7 +369,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &51971418
 MonoBehaviour:
@@ -384,7 +384,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 3
-  itemName: 
 --- !u!1 &52671206
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +454,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 56d241a960223d74ba910d11aeedd225, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -549,7 +548,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &90189165
 MonoBehaviour:
@@ -564,7 +563,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 0
-  itemName: 
 --- !u!1 &124028477
 GameObject:
   m_ObjectHideFlags: 0
@@ -647,7 +645,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &124028480
 MonoBehaviour:
@@ -662,7 +660,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 4
-  itemName: 
 --- !u!1 &174851557
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,7 +982,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &330830497
 MonoBehaviour:
@@ -1000,7 +997,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 4
-  itemName: 
 --- !u!1 &342329656
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,6 +1059,12 @@ MonoBehaviour:
   - {fileID: 1020126400}
   - {fileID: 1941757304}
   - {fileID: 2067457446}
+  - {fileID: 1620526473}
+  - {fileID: 1639164144}
+  - {fileID: 124028480}
+  - {fileID: 51971418}
+  - {fileID: 2116441237}
+  - {fileID: 1712713767}
 --- !u!1 &352498541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,7 +1147,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &352498544
 MonoBehaviour:
@@ -1160,7 +1162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 2
-  itemName: 
 --- !u!1 &353442821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,7 +1290,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 2
-  itemName: 
 --- !u!212 &356303754
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1339,7 +1339,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!1 &357853068
 GameObject:
@@ -2255,7 +2255,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &599138659
 MonoBehaviour:
@@ -2270,7 +2270,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 2
-  itemName: 
 --- !u!1 &656024491
 GameObject:
   m_ObjectHideFlags: 0
@@ -2353,7 +2352,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &656024494
 MonoBehaviour:
@@ -2368,7 +2367,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 0
-  itemName: 
 --- !u!1 &660602812
 GameObject:
   m_ObjectHideFlags: 0
@@ -2521,7 +2519,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 56d241a960223d74ba910d11aeedd225, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2943,7 +2941,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &871000596
 MonoBehaviour:
@@ -2958,7 +2956,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 1
-  itemName: 
 --- !u!1 &877833214
 GameObject:
   m_ObjectHideFlags: 0
@@ -3041,7 +3038,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &877833217
 MonoBehaviour:
@@ -3056,7 +3053,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 3
-  itemName: 
 --- !u!1 &893386063
 GameObject:
   m_ObjectHideFlags: 0
@@ -3139,7 +3135,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &893386066
 MonoBehaviour:
@@ -3154,7 +3150,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 1
-  itemName: 
 --- !u!1 &909241159
 GameObject:
   m_ObjectHideFlags: 0
@@ -3280,7 +3275,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &921875875
 MonoBehaviour:
@@ -3295,7 +3290,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 2
-  itemName: 
 --- !u!1 &924958643
 GameObject:
   m_ObjectHideFlags: 0
@@ -3594,7 +3588,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1020126400
 MonoBehaviour:
@@ -3609,7 +3603,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 4
-  itemName: 
 --- !u!1 &1064602784
 GameObject:
   m_ObjectHideFlags: 0
@@ -3692,7 +3685,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1064602787
 MonoBehaviour:
@@ -3707,7 +3700,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 1
-  itemName: 
 --- !u!1 &1064949686
 GameObject:
   m_ObjectHideFlags: 0
@@ -3872,7 +3864,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1065733716
 MonoBehaviour:
@@ -3887,7 +3879,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 4
-  itemName: 
 --- !u!1 &1070516328
 GameObject:
   m_ObjectHideFlags: 0
@@ -4052,7 +4043,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1115727912
 MonoBehaviour:
@@ -4067,7 +4058,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 3
-  itemName: 
 --- !u!1 &1156742268
 GameObject:
   m_ObjectHideFlags: 0
@@ -4130,6 +4120,12 @@ MonoBehaviour:
   - {fileID: 1065733716}
   - {fileID: 1115727912}
   - {fileID: 921875875}
+  - {fileID: 1193442025}
+  - {fileID: 1064602787}
+  - {fileID: 2077359522}
+  - {fileID: 877833217}
+  - {fileID: 599138659}
+  - {fileID: 1871065446}
 --- !u!1 &1186073399
 GameObject:
   m_ObjectHideFlags: 0
@@ -4294,7 +4290,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1193442025
 MonoBehaviour:
@@ -4309,7 +4305,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 0
-  itemName: 
 --- !u!1 &1231340242
 GameObject:
   m_ObjectHideFlags: 0
@@ -5004,7 +4999,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1572441245
 MonoBehaviour:
@@ -5019,7 +5014,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 1
-  itemName: 
 --- !u!1 &1616184354
 GameObject:
   m_ObjectHideFlags: 0
@@ -5184,7 +5178,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1620526473
 MonoBehaviour:
@@ -5199,7 +5193,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 0
-  itemName: 
 --- !u!1 &1629226888
 GameObject:
   m_ObjectHideFlags: 0
@@ -5348,7 +5341,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1639164144
 MonoBehaviour:
@@ -5363,7 +5356,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 1
-  itemName: 
 --- !u!1 &1640017981
 GameObject:
   m_ObjectHideFlags: 0
@@ -5434,7 +5426,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 56d241a960223d74ba910d11aeedd225, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5528,7 +5520,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1651763687
 MonoBehaviour:
@@ -5543,7 +5535,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 1
-  itemName: 
 --- !u!1 &1680013014
 GameObject:
   m_ObjectHideFlags: 0
@@ -5760,7 +5751,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1692541995
 MonoBehaviour:
@@ -5775,7 +5766,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 3
-  itemName: 
 --- !u!1 &1712713765
 GameObject:
   m_ObjectHideFlags: 0
@@ -5822,7 +5812,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 2
-  itemName: 
 --- !u!212 &1712713768
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5872,7 +5861,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!1 &1840554097
 GameObject:
@@ -5956,7 +5945,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1840554100
 MonoBehaviour:
@@ -5971,7 +5960,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 0
-  itemName: 
 --- !u!1 &1853829596
 GameObject:
   m_ObjectHideFlags: 0
@@ -6100,7 +6088,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 2
-  itemName: 
 --- !u!212 &1871065447
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6150,7 +6137,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!1 &1882164214
 GameObject:
@@ -6316,7 +6303,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1911587226
 MonoBehaviour:
@@ -6331,7 +6318,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 0
-  itemName: 
 --- !u!1 &1922773040
 GameObject:
   m_ObjectHideFlags: 0
@@ -6414,7 +6400,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1922773043
 MonoBehaviour:
@@ -6429,7 +6415,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 3
-  itemName: 
 --- !u!1 &1928056104
 GameObject:
   m_ObjectHideFlags: 0
@@ -6728,7 +6713,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &1941757304
 MonoBehaviour:
@@ -6743,7 +6728,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 3
-  itemName: 
 --- !u!1 &1988680378
 GameObject:
   m_ObjectHideFlags: 0
@@ -7217,7 +7201,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &2065251095
 MonoBehaviour:
@@ -7232,7 +7216,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 2
-  itemName: 
 --- !u!1 &2067457443
 GameObject:
   m_ObjectHideFlags: 0
@@ -7315,7 +7298,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &2067457446
 MonoBehaviour:
@@ -7330,7 +7313,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 2
-  itemName: 
 --- !u!1 &2077359519
 GameObject:
   m_ObjectHideFlags: 0
@@ -7413,7 +7395,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &2077359522
 MonoBehaviour:
@@ -7428,7 +7410,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 4
-  itemName: 
 --- !u!1 &2096419902
 GameObject:
   m_ObjectHideFlags: 0
@@ -7593,7 +7574,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &2105767435
 MonoBehaviour:
@@ -7608,7 +7589,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 4
-  itemName: 
 --- !u!1 &2116441234
 GameObject:
   m_ObjectHideFlags: 0
@@ -7691,7 +7671,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!114 &2116441237
 MonoBehaviour:
@@ -7706,7 +7686,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeName: 2
-  itemName: 
 --- !u!1 &2129384954
 GameObject:
   m_ObjectHideFlags: 0
@@ -7769,3 +7748,9 @@ MonoBehaviour:
   - {fileID: 330830497}
   - {fileID: 1922773043}
   - {fileID: 352498544}
+  - {fileID: 1911587226}
+  - {fileID: 1572441245}
+  - {fileID: 2105767435}
+  - {fileID: 1692541995}
+  - {fileID: 2065251095}
+  - {fileID: 356303753}
