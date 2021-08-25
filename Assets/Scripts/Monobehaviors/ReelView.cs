@@ -9,7 +9,7 @@ public class ReelView : MonoBehaviour
 
     [SerializeField] private int id;
     [SerializeField] private float spinTime;
-    [SerializeField] private List<GameObject> items;
+    [SerializeField] private List<ItemView> items;
 
     [Header("Spin Variables")]
     Vector3 initialPosition;
@@ -19,6 +19,7 @@ public class ReelView : MonoBehaviour
     private float deceleration = 3f;
     private float speedCoefficient = 3f;
     private float currentTime;
+    private List<string> spinVariables;
 
     Coroutine SpinCouroutine = null, Stopping = null;
 
@@ -27,6 +28,7 @@ public class ReelView : MonoBehaviour
     {
         On_ReelViewSpinning += ReelSpin;
         initialPosition = this.transform.position;
+        spinVariables = new List<string>();
     }
 
     private void OnDestroy()
@@ -38,19 +40,21 @@ public class ReelView : MonoBehaviour
     {
         if(this.id == id)
         {
-            Debug.Log(_currentCombo.ID);
-            foreach(var name in _currentCombo.Names)
+           
+            for (int i = 0; i<_currentCombo.Names.Length; i++)
             {
-                Debug.Log(name);
+                spinVariables.Add(_currentCombo.Names[i]);
+                Debug.Log(_currentCombo.Names[i]);
             }
             StartCoroutine(WaitUntilSpinEnd(spinTime, id));
-            BlurToggle();
+            //BlurToggle();
         }
     }
 
     IEnumerator WaitUntilSpinEnd(float spinTime, int id)
     {
         SpinCouroutine = StartCoroutine(Spin(id, spinTime));
+        BlurToggle();
         yield return new WaitForSeconds(spinTime);
         StopCoroutine(SpinCouroutine);
     }
@@ -65,19 +69,27 @@ public class ReelView : MonoBehaviour
             {
                 this.transform.position = initialPosition;
             }
-            if(spinTime - currentTime > 1f)
+            if(spinTime - currentTime > spinTime/2)
             {
                 rotationSpeed = Mathf.Clamp(rotationSpeed + Time.deltaTime * acceleration * speedCoefficient, 0, maxRotationSpeed);
-
+                this.transform.position = Vector3.MoveTowards(transform.position,
+                (new Vector3(transform.position.x, -7.5f, transform.position.z)),
+                rotationSpeed * Time.deltaTime);
             }
             else
             {
+                //Slowing
+                Debug.Log("I'm reel: " + id + "and my transform is " + GetCurrentVariableLocalTransform());
                 rotationSpeed = Mathf.Clamp(rotationSpeed - Time.deltaTime * deceleration  * speedCoefficient, 0, maxRotationSpeed);
-
+                this.transform.position = Vector3.MoveTowards(transform.position,
+                (new Vector3(transform.position.x, -GetCurrentVariableLocalTransform(), transform.position.z)),
+                rotationSpeed * Time.deltaTime);
+                if (transform.position.y == -GetCurrentVariableLocalTransform())
+                {
+                    Debug.Log("Wait");
+                    yield return null;
+                }
             }
-            this.transform.position = Vector3.MoveTowards(transform.position,
-                    (new Vector3(transform.position.x, -7.5f, transform.position.z)),
-                    rotationSpeed * Time.deltaTime);
             currentTime += Time.deltaTime;
             yield return null;
         }
@@ -97,5 +109,18 @@ public class ReelView : MonoBehaviour
                 childItem.SetActive(false);
             }
         }
+    }
+    private float GetCurrentVariableLocalTransform()
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].Equals(spinVariables[id-1]))
+            {
+                Debug.Log("Local transform:: " + items[i].LocalTransform.y);
+                return items[i].LocalTransform.y;
+            }
+        }
+        return 0;
+
     }
 }

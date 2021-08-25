@@ -1,4 +1,4 @@
-public class Reel {
+public class Reel{
 
     private int id;
 
