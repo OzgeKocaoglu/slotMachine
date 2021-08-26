@@ -27,24 +27,20 @@ public class ItemView : MonoBehaviour
             return initialLocalTransform;
         }
     }
-
     private void Awake()
     {
         blurChild = transform.GetChild(0).gameObject;
         initialLocalTransform = this.transform.localPosition;
         itemName = typeName.ToString();
     }
-
     public bool Equals(string obj)
     {
         return this.itemName == obj;
     }
-
     public void ActivateBlur()
     {
         blurChild.SetActive(true);
     }
-
     public void DeactivateBlur()
     {
         blurChild.SetActive(false);

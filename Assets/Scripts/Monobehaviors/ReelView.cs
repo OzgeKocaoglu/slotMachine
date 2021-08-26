@@ -16,6 +16,9 @@ public class ReelView : MonoBehaviour
     private float deceleration = 5f;
     private float speedCoefficient = 3f;
     private float currentTime;
+    private bool isAllTheSame;
+    private bool isSpinning;
+    private int comboId;
     private List<string> spinVariables;
 
     Coroutine SpinCouroutine = null, Stopping = null;
@@ -37,12 +40,17 @@ public class ReelView : MonoBehaviour
     {
         if(this.id == id)
         {
-           
+            comboId = _currentCombo.ID;
+            if (_currentCombo.Names[0] == _currentCombo.Names[1] && _currentCombo.Names[1] == _currentCombo.Names[2])
+            {
+                isAllTheSame = true;
+            }
             for (int i = 0; i<_currentCombo.Names.Length; i++)
             {
                 spinVariables.Add(_currentCombo.Names[i]);
                 Debug.Log(_currentCombo.Names[i]);
             }
+            isSpinning = true;
             StartCoroutine(WaitUntilSpinEnd(spinTime, id));
         }
     }
@@ -55,7 +63,7 @@ public class ReelView : MonoBehaviour
     IEnumerator Spin(int id, float spinTime)
     {
         yield return new WaitForSeconds(id * Random.Range(0.1f,0.2f));
-        while (true)
+        while (isSpinning)
         {
             if(currentTime > spinTime / 4)
             {
@@ -83,6 +91,9 @@ public class ReelView : MonoBehaviour
             currentTime += Time.deltaTime;
             yield return null;
         }
+        if(id == 3) ParticleManager.On_StartParticle?.Invoke(comboId);
+        UIManager.On_ActivateAgain?.Invoke();
+        yield return null;
     }
     IEnumerator Stop()
     {
@@ -96,17 +107,15 @@ public class ReelView : MonoBehaviour
 
         }
         rotationSpeed = Mathf.Clamp(rotationSpeed - Time.deltaTime * deceleration * speedCoefficient, 0, maxRotationSpeed);
-
-        while (true)
+        while (transform.position.y != -GetCurrentVariableLocalTransform())
         {
             this.transform.position = Vector3.MoveTowards(transform.position,
             (new Vector3(transform.position.x, -GetCurrentVariableLocalTransform(), transform.position.z)),
             rotationSpeed * Time.deltaTime);
             yield return null;
+            isSpinning = false;
         }
-
     }
-
     private float GetCurrentVariableLocalTransform()
     {
         for (int i = 0; i < items.Count; i++)
