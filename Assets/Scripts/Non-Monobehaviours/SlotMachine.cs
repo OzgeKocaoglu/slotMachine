@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-
 public enum SlotMachineState
 {
     Idle,
@@ -25,14 +24,13 @@ public class SlotMachine : ISlotMachine
     private int[] _comboList;
     private int spinCount = 0;
     private int periot = 100;
+    public Combo _currentCombo;
 
     public delegate void SlotMachineHandler(SlotMachineState State, Combo _currentCombo);
     public static SlotMachineHandler On_StateChanged;
-    public Combo _currentCombo;
 
     [Inject]
     IDataManager _dataManager;
-
 
     public SlotMachineState State
     {
@@ -64,7 +62,6 @@ public class SlotMachine : ISlotMachine
         _dataManager.GetData(out spinCount, out _comboList);
         if (spinCount % periot == 0)
         {
-            Debug.Log("Combolist count" + _comboList.Length);
             Debug.Log("Creating new set");
             for (int i = 0; i < _combos.Count; i++)
             {
@@ -130,10 +127,6 @@ public class SlotMachine : ISlotMachine
 
         }
         return null;
-    }
-    private void ClearJson()
-    {
-        spinCount = 0;
     }
     private int GenerateRandom(int p, int coefficent)
     {
