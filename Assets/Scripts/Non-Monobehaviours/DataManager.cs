@@ -8,7 +8,6 @@ public interface IDataManager
     void SaveData(int[] _spins, int spinCount);
     public void GetData(out int spinCount, out int[] _spins);
 }
-
 public class DataManager : IDataManager
 {
     PlayerData data;

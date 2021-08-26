@@ -18,7 +18,6 @@ public class UIManager : MonoBehaviour
 
     public void Spin()
     {
-        Debug.Log("Spining");
         On_SpinClick?.Invoke();
     }
 

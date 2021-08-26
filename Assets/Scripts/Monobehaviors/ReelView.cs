@@ -91,8 +91,8 @@ public class ReelView : MonoBehaviour
             currentTime += Time.deltaTime;
             yield return null;
         }
-        if(id == 3) ParticleManager.On_StartParticle?.Invoke(comboId);
-        UIManager.On_ActivateAgain?.Invoke();
+        if(id == 3 && isAllTheSame) ParticleManager.On_StartParticle?.Invoke(comboId);
+        isAllTheSame = false;
         yield return null;
     }
     IEnumerator Stop()

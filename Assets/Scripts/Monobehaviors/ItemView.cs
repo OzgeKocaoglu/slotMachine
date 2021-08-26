@@ -45,6 +45,4 @@ public class ItemView : MonoBehaviour
     {
         blurChild.SetActive(false);
     }
-
-
 }
