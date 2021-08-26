@@ -10,17 +10,14 @@ public class UIManager : MonoBehaviour
     {
         On_ActivateAgain += ActivateButton;
     }
-
     private void OnDestroy()
     {
         On_ActivateAgain += ActivateButton;
     }
-
     public void Spin()
     {
         On_SpinClick?.Invoke();
     }
-
     public void ActivateButton()
     {
         button.SetActive(true);
